@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       dateOfBirth: {
-        type: Sequelize.STRING
+        type: Sequelize.DATEONLY
       },
       address: {
         type: Sequelize.STRING

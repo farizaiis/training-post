@@ -7,7 +7,7 @@ module.exports = {
         try {
             const schema = Joi.object({
                 name : Joi.string().required(),
-                dateOfBirth : Joi.string().required(),
+                dateOfBirth : Joi.date().required(),
                 address : Joi.string().required()
             })
 
@@ -28,8 +28,7 @@ module.exports = {
                 })
             }
 
-
-            const studentData = await students.create({ ...body }); 
+            const studentData = await students.create({ ...body })
 
             if(!studentData) {
                 return res.status(400).json({
@@ -37,6 +36,7 @@ module.exports = {
                     message : "Unable to input data"
                 });
             }
+
             return res.status(200).json({
                 status : "success",
                 message : "Succesfully input data to database",
@@ -58,12 +58,14 @@ module.exports = {
                 attributes : { exclude : ["id", "updatedAt", "createdAt"] },
                 include : [{ as : "Scores", model : scores, attributes : { exclude : ["id", "idStudents", "updatedAt", "createdAt"]} }]
             }); 
+
             if(!studentData) {
                 return res.status(400).json({
                     status : "failed",
                     message : "Data not found"
                 });
             }
+
             return res.status(200).json({
                 status : "success",
                 message : "Succesfully retrieved data Student",
@@ -83,17 +85,20 @@ module.exports = {
                 attributes : { exclude : ["id", "updatedAt", "createdAt"] },
                 include : [{ as : "Scores", model : scores, attributes : { exclude : ["id", "idStudents", "updatedAt", "createdAt"]} }]
             }); 
-            if(!studentData) {
+
+            if(studentData) {
                 return res.status(400).json({
                     status : "failed",
-                    message : "Data not found"
+                    message : "Data not found",
                 });
             }
+
             return res.status(200).json({
                 status : "success",
                 message : "Succesfully retrieved data Student",
                 data: studentData
             });
+
         } catch (error) {
             return res.status(500).json({
                 status : "failed",
@@ -108,7 +113,7 @@ module.exports = {
         try {
             const schema = Joi.object({
                 name : Joi.string(),
-                dateOfBirth : Joi.string(),
+                dateOfBirth : Joi.date(),
                 address : Joi.string()
             })
 

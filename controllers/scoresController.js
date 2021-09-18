@@ -1,5 +1,5 @@
 const { scores } = require('../models')
-const Joi = require('joi')
+const Joi = require('joi');
 
 module.exports = {
     postScores : async (req, res) => {
@@ -32,14 +32,20 @@ module.exports = {
                 })
             }
 
+            const checkIdStudents = await scores.findOne({
+                where: {
+                    idStudents: body.idStudents
+                }
+            })
 
-            const scoresData = await scores.create({
-                idStudents : body.idStudents,
-                math : body.math,
-                physics : body.physics,
-                algorithm : body.algorithm,
-                programming : body.programming
-            }); 
+            if(checkIdStudents) {
+                return res.status(400).json({
+                    status: "fail",
+                    message: "Cannot add another score for same Student",
+                });
+            }
+
+            const scoresData = await scores.create({ ...body }); 
 
             if(!scoresData) {
                 return res.status(400).json({

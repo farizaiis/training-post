@@ -6,7 +6,6 @@ module.exports = {
         const body = req.body
         try {
             const schema = Joi.object({
-                id: Joi.number().min(100).max(999),
                 name : Joi.string().required(),
                 dateOfBirth : Joi.string().required(),
                 address : Joi.string().required()
@@ -30,9 +29,7 @@ module.exports = {
             }
 
 
-            const studentData = await students.create({
-                ...body
-            }); 
+            const studentData = await students.create({ ...body }); 
 
             if(!studentData) {
                 return res.status(400).json({

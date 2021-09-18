@@ -5,7 +5,7 @@
 ### benerin studentId biar ga double (opti ke 3) done/sudahdibuat
 ### gimana cara kalo delete student maka score nya juga ke delete (opti 4) done/sudahdibuat
 ### gimana cara biar buat student, score juga ke buat walaupun masih null (opti 5)
-### gimana cara biar admin gabisa delete admin yang lain kecuali superadmin (opti 6)
+### gimana cara biar admin gabisa delete admin yang lain(opti 6)
 ### gimana cara ada superadmin di table admin (opti 7)
 
 ## check lagi masih ada cacat atau engga di codingan

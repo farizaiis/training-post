@@ -28,7 +28,15 @@ module.exports = {
                 })
             }
 
-            const studentData = await students.create({ ...body })
+            const studentData = await students.create({
+                name : body.name,
+                dateOfBirth : body.dateOfBirth,
+                address : body.address
+            })
+
+            const scoreData = await scores.create({
+                idStudents : studentData.id
+            })
 
             if(!studentData) {
                 return res.status(400).json({
@@ -39,8 +47,10 @@ module.exports = {
 
             return res.status(200).json({
                 status : "success",
-                message : "Succesfully input data to database",
-                data: studentData
+                message : "Succesfully input data the Student",
+                student: studentData,
+                score : scoreData,  
+                additional : "this Student's Score has been Created, but still empty every score"
             });
         } catch (error) {
             return res.status(500).json({
@@ -82,11 +92,11 @@ module.exports = {
     getAllStudents : async (req, res) => {
         try {
             const studentData = await students.findAll({
-                attributes : { exclude : ["id", "updatedAt", "createdAt"] },
+                attributes : { exclude : ["updatedAt", "createdAt"] },
                 include : [{ as : "Scores", model : scores, attributes : { exclude : ["id", "idStudents", "updatedAt", "createdAt"]} }]
             }); 
 
-            if(studentData) {
+            if(!studentData) {
                 return res.status(400).json({
                     status : "failed",
                     message : "Data not found",

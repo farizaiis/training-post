@@ -1,5 +1,6 @@
 const { admins } = require('../models')
 const Joi = require('joi')
+const bcrypt = require('bcrypt')
 
 module.exports = {
 
@@ -73,9 +74,13 @@ module.exports = {
                 })
             }
 
+            const hashedPassword = await bcrypt.hash(body.password, 10);
 
             const adminsData = await admins.update(
-                { ...body },
+                {
+                    username : body.username,
+                    password : hashedPassword
+                },
                 { where : { id } }
             ); 
 
@@ -87,7 +92,7 @@ module.exports = {
             }
 
             const data = await admins.findOne({
-                where : { id : req.params.id }
+                where : { id }
             })
 
             return res.status(200).json({

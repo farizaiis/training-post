@@ -1,4 +1,4 @@
-const { students } = require('../models')
+const { students, scores } = require('../models')
 const Joi = require('joi')
 
 module.exports = {
@@ -56,7 +56,11 @@ module.exports = {
     getOneStudents : async (req, res) => {
         const id = req.params.id
         try {
-            const studentData = await students.findOne({ where : { id } }); 
+            const studentData = await students.findOne({
+                where : { id },
+                attributes : { exclude : ["id", "updatedAt", "createdAt"] },
+                include : [{ as : "Scores", model : scores, attributes : { exclude : ["id", "idStudents", "updatedAt", "createdAt"]} }]
+            }); 
             if(!studentData) {
                 return res.status(400).json({
                     status : "failed",
@@ -78,7 +82,10 @@ module.exports = {
 
     getAllStudents : async (req, res) => {
         try {
-            const studentData = await students.findAll(); 
+            const studentData = await students.findAll({
+                attributes : { exclude : ["id", "updatedAt", "createdAt"] },
+                include : [{ as : "Scores", model : scores, attributes : { exclude : ["id", "idStudents", "updatedAt", "createdAt"]} }]
+            }); 
             if(!studentData) {
                 return res.status(400).json({
                     status : "failed",

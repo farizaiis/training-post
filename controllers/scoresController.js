@@ -63,7 +63,9 @@ module.exports = {
     getOneScores : async (req, res) => {
         const id = req.params.id
         try {
-            const scoresData = await scores.findOne({ where : { id } }); 
+            const scoresData = await scores.findOne({ 
+                where : { id }, 
+            }); 
             if(!scoresData) {
                 return res.status(400).json({
                     status : "failed",

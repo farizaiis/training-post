@@ -10,6 +10,6 @@
 ### gimana kalo 
 
 ## check lagi masih ada cacat atau engga di codingan
-### 1. apa bisa retrieve data kalo data nol? done, error: data not found kalo ga ada data
-### 2. apa bisa username admin sama? done, tidak bisa sama
+### 1. apa bisa retrieve data kalo data nol? // done, error: data not found kalo ga ada data
+### 2. apa bisa username admin sama? // done, tidak bisa sama
 ## 3. cek sekiranya gimana caranya pokokoknya ga ada cacat di codingan masing2 CRUD table.

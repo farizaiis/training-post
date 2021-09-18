@@ -7,7 +7,6 @@
 ### gimana cara biar buat student, score juga ke buat walaupun masih null (opti 5)
 ### gimana cara biar admin gabisa delete admin yang lain kecuali superadmin (opti 6)
 ### gimana cara ada superadmin di table admin (opti 7)
-### gimana kalo 
 
 ## check lagi masih ada cacat atau engga di codingan
 ### 1. apa bisa retrieve data kalo data nol? // done, error: data not found kalo ga ada data

@@ -25,6 +25,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return scores;
 };
-
-//benerin id biar ga kosong (opti ke 2)
-//benerin studentId biar ga double (opti ke 3)

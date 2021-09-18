@@ -23,8 +23,3 @@ module.exports = (sequelize, DataTypes) => {
   });
   return students;
 };
-
-
-//ganti dateofbirth ke type date (opti ke 1)
-//benerin id biar ga kosong (opti ke 2)
-//benerin studentId biar ga double (opti ke 3)

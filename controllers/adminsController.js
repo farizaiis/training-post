@@ -49,12 +49,11 @@ module.exports = {
         }
     },
 
-    updateAdmins : async (req, res) => {
+    updatePassAdmins : async (req, res) => {
         const body = req.body
         const id = req.params.id
         try {
             const schema = Joi.object({
-                username : Joi.string(),
                 password : Joi.string()
             })
 
@@ -76,15 +75,14 @@ module.exports = {
 
             const hashedPassword = await bcrypt.hash(body.password, 10);
 
-            const adminsData = await admins.update(
+            const adminsUpdatePass = await admins.update(
                 {
-                    username : body.username,
                     password : hashedPassword
                 },
                 { where : { id } }
             ); 
 
-            if(!adminsData) {
+            if(!adminsUpdatePass) {
                 return res.status(400).json({
                     status : "failed",
                     message : "Unable to input data"
@@ -94,10 +92,65 @@ module.exports = {
             const data = await admins.findOne({
                 where : { id }
             })
-
+            
             return res.status(200).json({
                 status : "success",
-                message : "Succesfully update the data",
+                message : "Succesfully update the password",
+                data : data
+            });
+        } catch (error) {
+            return res.status(500).json({
+                status : "failed",
+                message : "Internal Server Error"
+            })
+        }
+    },
+
+    updateUsernameAdmins : async (req, res) => {
+        const body = req.body
+        const id = req.params.id
+        try {
+            const schema = Joi.object({
+                username : Joi.string()
+            })
+
+            const { error } = schema.validate(
+                {
+                    username : body.username,
+                    password : body.password
+                },
+                { abortEarly : false }
+            )
+
+            if (error) {
+                return res.status(400).json({
+                    status : "failed",
+                    message : "Bad Request",
+                    errors : error["details"].map(({ message }) => message )
+                })
+            }
+
+            const adminsUpdateUser = await admins.update(
+                {
+                    username : body.username
+                },
+                { where : { id } }
+            ); 
+
+            if(!adminsUpdateUser) {
+                return res.status(400).json({
+                    status : "failed",
+                    message : "Unable to input data"
+                });
+            }
+
+            const data = await admins.findOne({
+                where : { id }
+            })
+            
+            return res.status(200).json({
+                status : "success",
+                message : "Succesfully update the username",
                 data : data
             });
         } catch (error) {

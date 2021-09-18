@@ -35,7 +35,11 @@ module.exports = {
             })
 
             const scoreData = await scores.create({
-                idStudents : studentData.id
+                idStudents : studentData.id,
+                math : 0,
+                physics : 0,
+                algorithm : 0,
+                programming : 0
             })
 
             if(!studentData) {
@@ -49,8 +53,8 @@ module.exports = {
                 status : "success",
                 message : "Succesfully input data the Student",
                 student: studentData,
-                score : scoreData,  
-                additional : "this Student's Score has been Created, but still empty every score"
+                score : scoreData,
+                additional : "this Student's Score has been Created, but still 0 every score"
             });
         } catch (error) {
             return res.status(500).json({
@@ -123,7 +127,7 @@ module.exports = {
         try {
             const schema = Joi.object({
                 name : Joi.string(),
-                dateOfBirth : Joi.date(),
+                dateOfBirth : Joi.date().format("YYYY-M-D"),
                 address : Joi.string()
             })
 

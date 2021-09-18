@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@joi/date": "^2.1.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "joi": "^17.4.2",

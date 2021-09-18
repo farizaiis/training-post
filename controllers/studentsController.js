@@ -1,5 +1,5 @@
 const { students, scores } = require('../models')
-const Joi = require('joi')
+const Joi = require('joi').extend(require('@joi/date'))
 
 module.exports = {
     postStudents : async (req, res) => {
@@ -7,7 +7,7 @@ module.exports = {
         try {
             const schema = Joi.object({
                 name : Joi.string().required(),
-                dateOfBirth : Joi.date().required(),
+                dateOfBirth : Joi.date().format("YYYY-M-D").required(),
                 address : Joi.string().required()
             })
 

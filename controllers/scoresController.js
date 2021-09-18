@@ -45,7 +45,13 @@ module.exports = {
                 });
             }
 
-            const scoresData = await scores.create({ ...body }); 
+            const scoresData = await scores.create({ 
+                idStudents : body.idStudents,
+                math : body.math,
+                physics : body.physics,
+                algorithm : body.algorithm,
+                programming : body.programming
+            }); 
 
             if(!scoresData) {
                 return res.status(400).json({

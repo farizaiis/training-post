@@ -9,4 +9,5 @@ router.use("/student", students)
 router.use("/admin", admins)
 router.use("/score", scores)
 router.use("/auth", auth)
+
 module.exports = router

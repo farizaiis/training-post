@@ -51,7 +51,8 @@ module.exports = {
                 return res.status(200).json({
                     status: "success",
                     message: "Registered successfully",
-                    data: token,
+                    token: token,
+                    data: admin
                 });
             });
             
@@ -113,7 +114,7 @@ module.exports = {
                 return res.status(200).json({
                     status: "success",
                     message: "Login successfully",
-                    data: token,
+                    token: token,
                 });
             });
             

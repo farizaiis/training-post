@@ -1,14 +1,7 @@
 # training-post
 
-### ganti dateofbirth ke type date (opti ke 1) done/sudahdibuat
-### benerin id biar ga kosong (opti ke 2) gabisa, better ga usah dirapihin biar ga lama pas create data baru
-### benerin studentId biar ga double (opti ke 3) done/sudahdibuat
-### gimana cara kalo delete student maka score nya juga ke delete (opti 4) done/sudahdibuat
-### gimana cara biar buat student, score juga ke buat walaupun masih null (opti 5)
 ### gimana cara biar admin gabisa delete admin yang lain(opti 6)
 ### gimana cara ada superadmin di table admin (opti 7)
 
 ## check lagi masih ada cacat atau engga di codingan
-### 1. apa bisa retrieve data kalo data nol? // done, error: data not found kalo ga ada data
-### 2. apa bisa username admin sama? // done, tidak bisa sama
-## 3. cek sekiranya gimana caranya pokokoknya ga ada cacat di codingan masing2 CRUD table.
+### 3. cek sekiranya gimana caranya pokokoknya ga ada cacat di codingan masing2 CRUD table.

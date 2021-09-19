@@ -59,7 +59,6 @@ module.exports = {
 
             const { error } = schema.validate(
                 {
-                    username : body.username,
                     password : body.password
                 },
                 { abortEarly : false }
@@ -117,7 +116,6 @@ module.exports = {
             const { error } = schema.validate(
                 {
                     username : body.username,
-                    password : body.password
                 },
                 { abortEarly : false }
             )

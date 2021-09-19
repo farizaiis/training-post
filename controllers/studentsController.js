@@ -154,7 +154,7 @@ module.exports = {
                 { where : { id } }
             ); 
 
-            if(!studentData) {
+            if(!studentData[0]) {
                 return res.status(400).json({
                     status : "failed",
                     message : "Unable to input data"

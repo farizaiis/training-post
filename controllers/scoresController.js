@@ -156,7 +156,7 @@ module.exports = {
                 { where : { id } }
             ); 
 
-            if(!scoresData) {
+            if(!scoresData[0]) {
                 return res.status(400).json({
                     status : "failed",
                     message : "Unable to input data"

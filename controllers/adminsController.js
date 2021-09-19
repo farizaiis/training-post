@@ -81,7 +81,7 @@ module.exports = {
                 { where : { id } }
             ); 
 
-            if(!adminsUpdatePass) {
+            if(!adminsUpdatePass[0]) {
                 return res.status(400).json({
                     status : "failed",
                     message : "Unable to input data"

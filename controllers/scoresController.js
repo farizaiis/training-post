@@ -13,16 +13,7 @@ module.exports = {
                 programming : Joi.number()
             });
 
-            const { error } = schema.validate(
-                {
-                    idStudents : body.idStudents,
-                    math : body.math,
-                    physics : body.physics,
-                    algorithm : body.algorithm,
-                    programming : body.programming
-                },
-                { abortEarly : false }
-            )
+            const { error } = schema.validate({ ...body }, { abortEarly : false })
 
             if (error) {
                 return res.status(400).json({
@@ -45,13 +36,7 @@ module.exports = {
                 });
             }
 
-            const scoresData = await scores.create({ 
-                idStudents : body.idStudents,
-                math : body.math,
-                physics : body.physics,
-                algorithm : body.algorithm,
-                programming : body.programming
-            }); 
+            const scoresData = await scores.create({ ...body }); 
 
             if(!scoresData) {
                 return res.status(400).json({
@@ -124,23 +109,14 @@ module.exports = {
         const id = req.params.id
         try {
             const schema = Joi.object({
-                idStudents : Joi.number().required(),
+                idStudents : Joi.number(),
                 math : Joi.number(),
                 physics : Joi.number(),
                 algorithm : Joi.number(),
                 programming : Joi.number()
             })
 
-            const { error } = schema.validate(
-                {
-                    idStudents : body.idStudents,
-                    math : body.math,
-                    physics : body.physics,
-                    algorithm : body.algorithm,
-                    programming : body.programming  
-                },
-                { abortEarly : false }
-            )
+            const { error } = schema.validate({ ...body }, { abortEarly : false })
 
             if (error) {
                 return res.status(400).json({
@@ -151,10 +127,7 @@ module.exports = {
             }
 
 
-            const scoresData = await scores.update(
-                { ...body },
-                { where : { id } }
-            ); 
+            const scoresData = await scores.update({ ...body }, { where : { id } }); 
 
             if(!scoresData[0]) {
                 return res.status(400).json({

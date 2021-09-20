@@ -4,7 +4,8 @@ module.exports = async (req, res, next) => {
     const bearerToken = req.header("Authorization");
     try {
         const token = bearerToken.replace("Bearer ", "");
-        jwt.verify(token, "PasswordTestHehe");
+        const decoded = jwt.verify(token, "PasswordTestHehe");
+        req.admins = decoded;
         next();
     } catch (error) {
         return res.status(401).json({

@@ -91,7 +91,7 @@ module.exports = {
 
             if(!checkUsername) {
                 return res.status(400).json({
-                    status: "fail",
+                    status: "failed",
                     message: "Invalid Username",
                 });
             }

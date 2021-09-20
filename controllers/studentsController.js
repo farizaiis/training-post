@@ -11,14 +11,7 @@ module.exports = {
                 address : Joi.string().required()
             })
 
-            const { error } = schema.validate(
-                {
-                    name : body.name,
-                    dateOfBirth : body.dateOfBirth,
-                    address : body.address  
-                },
-                { abortEarly : false }
-            )
+            const { error } = schema.validate({ ...body }, { abortEarly : false })
 
             if (error) {
                 return res.status(400).json({
@@ -28,19 +21,9 @@ module.exports = {
                 })
             }
 
-            const studentData = await students.create({
-                name : body.name,
-                dateOfBirth : body.dateOfBirth,
-                address : body.address
-            })
+            const studentData = await students.create({ ...body })
 
-            const scoreData = await scores.create({
-                idStudents : studentData.id,
-                math : 0,
-                physics : 0,
-                algorithm : 0,
-                programming : 0
-            })
+            const scoreData = await scores.create({ idStudents : studentData.id })
 
             if(!studentData) {
                 return res.status(400).json({
@@ -131,14 +114,7 @@ module.exports = {
                 address : Joi.string()
             })
 
-            const { error } = schema.validate(
-                {
-                    name : body.name,
-                    dateOfBirth : body.dateOfBirth,
-                    address : body.address  
-                },
-                { abortEarly : false }
-            )
+            const { error } = schema.validate({ ...body }, { abortEarly : false })
 
             if (error) {
                 return res.status(400).json({
@@ -148,16 +124,12 @@ module.exports = {
                 })
             }
 
-
-            const studentData = await students.update(
-                { ...body },
-                { where : { id } }
-            ); 
+            const studentData = await students.update({ ...body }, { where : { id } }); 
 
             if(!studentData[0]) {
                 return res.status(400).json({
                     status : "failed",
-                    message : "Unable to input data"
+                    message : "Unable to update data"
                 });
             }
 

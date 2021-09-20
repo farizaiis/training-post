@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 module.exports = {
-    register : async (req, res) => {
+    register : async (req, res) => {            //<---- Register data admins include nge create data nya ke Table
         const body = req.body
         try {
             const schema = Joi.object({
@@ -22,6 +22,7 @@ module.exports = {
                 })
             }
 
+            //check agar username tidak double
             const checkUsername = await admins.findOne({
                 where: {
                     username: body.username
@@ -35,6 +36,7 @@ module.exports = {
                 });
             }
 
+            //enkripsi password yang akan dibuat
             const hashedPassword = await bcrypt.hash(body.password, 10);
 
             const admin = await admins.create({
@@ -47,6 +49,7 @@ module.exports = {
                 id : admin.dataValues.id
             }
 
+            //encode data admin yang sedang dibuat agar langsung dapat token, supaya bisa langsung execute controller yg lain
             jwt.sign(payload, "PasswordTestHehe", { expiresIn : 7200 }, (err, token) => {
                 return res.status(200).json({
                     status: "success",
@@ -65,7 +68,7 @@ module.exports = {
         }
     },
 
-    login : async (req, res) => {
+    login : async (req, res) => {       //<---- Login data admins agar bisa dapet token
         const body = req.body
         try {
             const schema = Joi.object({
@@ -110,6 +113,7 @@ module.exports = {
                 id : checkUsername.dataValues.id
             }
 
+            //encode data yang sudah di login agar bisa get token
             jwt.sign(payload, "PasswordTestHehe", { expiresIn : 7200 }, (err, token) => {
                 return res.status(200).json({
                     status: "success",

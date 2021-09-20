@@ -1,5 +1,5 @@
 const { students, scores } = require('../models')
-const Joi = require('joi').extend(require('@joi/date'))
+const Joi = require('joi').extend(require('@joi/date')) //tmbahin joi date supaya bisa validasi format penginputan di postman
 
 module.exports = {
     postStudents : async (req, res) => {
@@ -7,7 +7,7 @@ module.exports = {
         try {
             const schema = Joi.object({
                 name : Joi.string().required(),
-                dateOfBirth : Joi.date().format("YYYY-M-D").required(),
+                dateOfBirth : Joi.date().format("YYYY-M-D").required(),     //format agar inputan user hanya mengikuti satu format
                 address : Joi.string().required()
             })
 
@@ -23,7 +23,8 @@ module.exports = {
 
             const studentData = await students.create({ ...body })
 
-            const scoreData = await scores.create({ idStudents : studentData.id })
+            //agar ketika data student nge create, score untuk student itu sendiri ke create juga, dan nilai idStudent nya menyesuaikan
+            const scoreData = await scores.create({ idStudents : studentData.id }) 
 
             if(!studentData) {
                 return res.status(400).json({
@@ -52,8 +53,8 @@ module.exports = {
         try {
             const studentData = await students.findOne({
                 where : { id },
-                attributes : { exclude : ["id", "updatedAt", "createdAt"] },
-                include : [{ as : "Scores", model : scores, attributes : { exclude : ["id", "idStudents", "updatedAt", "createdAt"]} }]
+                attributes : { exclude : ["id", "updatedAt", "createdAt"] }, //ngehide attibut sesuai kondisi
+                include : [{ as : "Scores", model : scores, attributes : { exclude : ["id", "idStudents", "updatedAt", "createdAt"]} }] //menampilkan data yang score yang berelasi dengan data student
             }); 
 
             if(!studentData) {

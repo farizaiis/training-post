@@ -4,6 +4,7 @@ const Joi = require('joi');
 module.exports = {
     postScores : async (req, res) => {
         const body = req.body
+        const idStudents = req.params.idStudents
         try {
             const schema = Joi.object({
                 idStudents : Joi.number().required(),
@@ -36,7 +37,9 @@ module.exports = {
                 });
             }
 
-            const scoresData = await scores.create({ ...body }); 
+            const scoresData = await scores.create({ ...body }, { 
+                where : { idStudents }, 
+            }); 
 
             if(!scoresData) {
                 return res.status(400).json({
@@ -58,10 +61,10 @@ module.exports = {
     },
 
     getOneScores : async (req, res) => {
-        const id = req.params.id
+        const idStudents = req.params.idStudents
         try {
             const scoresData = await scores.findOne({ 
-                where : { id }, 
+                where : { idStudents }, 
             }); 
             if(!scoresData) {
                 return res.status(400).json({
@@ -106,7 +109,7 @@ module.exports = {
 
     updateScores : async (req, res) => {
         const body = req.body
-        const id = req.params.id
+        const idStudents = req.params.idStudents
         try {
             const schema = Joi.object({
                 idStudents : Joi.number(),
@@ -127,7 +130,7 @@ module.exports = {
             }
 
 
-            const scoresData = await scores.update({ ...body }, { where : { id } }); 
+            const scoresData = await scores.update({ ...body }, { where : { idStudents } }); 
 
             if(!scoresData[0]) {
                 return res.status(400).json({
@@ -137,7 +140,7 @@ module.exports = {
             }
 
             const data = await scores.findOne({
-                where : { id : req.params.id }
+                where : { idStudents : req.params.idStudents }
             })
 
             return res.status(200).json({
@@ -154,10 +157,10 @@ module.exports = {
     },
 
     deleteOneScores : async (req, res) => {
-        const id = req.params.id
+        const idStudents = req.params.idStudents
         try {
-            const scoresData = await scores.destroy({ where : { id } }); 
-            if(!scoresData) {
+            const scoresData = await scores.destroy({ where : { idStudents } }); 
+            if(!scoresData) {   
                 return res.status(400).json({
                     status : "failed",
                     message : "Data not found"
